@@ -1,4 +1,4 @@
-﻿namespace TEngine.ArcCache
+﻿namespace TEngine
 {
     /// <summary>
     /// 队列类型。
@@ -29,11 +29,6 @@
         B2
     }
 
-    /// <summary>
-    /// 队列节点。
-    /// </summary>
-    /// <typeparam name="TKey">键类型。</typeparam>
-    /// <typeparam name="TValue">值类型。</typeparam>
     public class QueueNode<TKey, TValue>
     {
         public readonly TKey Key;
