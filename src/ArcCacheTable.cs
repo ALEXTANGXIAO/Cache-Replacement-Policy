@@ -70,7 +70,7 @@ namespace TEngine
         /// <param name="value">值。</param>
         public void PutCache(TKey key, TValue value)
         {
-            QueueNode<TKey, TValue> queueNode = CacheStorageMap[key];
+            CacheStorageMap.TryGetValue(key, out QueueNode<TKey, TValue> queueNode);
 
             if (queueNode == null)
             {
@@ -100,7 +100,7 @@ namespace TEngine
         /// <returns>TValue from cache if exists or null。</returns>
         public TValue GetCache(TKey key)
         {
-            QueueNode<TKey, TValue> queueNode = CacheStorageMap[key];
+            CacheStorageMap.TryGetValue(key, out QueueNode<TKey, TValue> queueNode);
 
             if (queueNode == null)
             {
@@ -247,7 +247,7 @@ namespace TEngine
             TValue value = queueNodeToBeRemoved.Get();
             try
             {
-                //Dispose(value);
+                OnRemoveCallback?.Invoke(value);
             }
             catch (System.Exception e)
             {
@@ -264,7 +264,7 @@ namespace TEngine
                 if (keys == "")
                     keys += key;
                 else
-                    keys += ", " + key;
+                    keys += " | " + key;
             }
 
             Debug.Log("All Existing Keys in Cache are : " + keys);
